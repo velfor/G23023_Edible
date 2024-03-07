@@ -16,7 +16,7 @@ class Obstacle(pygame.sprite.Sprite):
     def update(self):
         self.rect.y += self.speedy
         if self.rect.top >= SC_HEIGHT:
-            self.rect.x = randint(0, SC_WIDTH - OBS_WIDTH)
+            self.rect.x = randint(0, SC_WIDTH - self.rect.width)
             self.rect.bottom = 0
 
     def draw(self, screen):

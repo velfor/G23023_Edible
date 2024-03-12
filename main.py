@@ -3,6 +3,7 @@ import sys
 from settings import *
 from player import Player
 from obs import Obstacle
+from text_obj import Text_Obj
 
 # создание объектов и групп
 pygame.init()
@@ -28,6 +29,7 @@ for i in range(2):
 
 # переменные
 score = 0
+score_text = Text_Obj(10, 10, str(score), screen)
 
 # главный цикл
 while True:
@@ -41,6 +43,7 @@ while True:
             
     # изменение объектов, update
     all_sprites.update()
+    score_text.update(score)
  
     #пересечение объектов, collisions
     hits = pygame.sprite.spritecollide(player, items, True)
@@ -54,6 +57,7 @@ while True:
     # обновление экрана
     screen.fill(BLACK)
     all_sprites.draw(screen)
+    score_text.draw()
     pygame.display.update()
 
 

@@ -4,6 +4,7 @@ from settings import *
 from player import Player
 from obs import Obstacle
 from text_obj import Text_Obj
+from bg import Background
 
 # создание объектов и групп
 pygame.init()
@@ -27,12 +28,18 @@ for i in range(2):
     all_sprites.add(obs)
     items.add(obs)
 
+game_over_bg = Background("game_over.png")
+
 # переменные
 score = 0
+hp = 1000
 score_text = Text_Obj(10, 10, str(score), screen)
 
+
+run = True
+
 # главный цикл
-while True:
+while run:
     # задержка
     clock.tick(FPS)
     # цикл обработки событий
@@ -44,6 +51,9 @@ while True:
     # изменение объектов, update
     all_sprites.update()
     score_text.update(score)
+    hp -= 1
+    if hp <= 0:
+        run = False
  
     #пересечение объектов, collisions
     hits = pygame.sprite.spritecollide(player, items, True)
@@ -60,6 +70,15 @@ while True:
     score_text.draw()
     pygame.display.update()
 
+while True:
+    for i in pygame.event.get():
+        if i.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    screen.fill(BLACK)
+    game_over_bg.draw(screen)
+    pygame.display.update()
 
 
     
